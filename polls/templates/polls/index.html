@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/style.css">
+   
+    <title>{% block title %} Sharall {% endblock %}</title>
+
+</head>
+<body>
+
+    <div class="bg-image">
+
+        
+
+            <div class="text-con">
+
+            <h1>Share your ideas!</h1>
+
+            <h2><p>The ultimate platform for capturing and sharing your hopes, dreams, and inspiration. Our easy-to-use to-do list will help you stay organized and on track, while our sections for cooking and wishing allow you to creatively express your desires and bring them to life. Join our community of positive, like-minded individuals and let's build a brighter future together!</p></h2>
+            
+            </div>
+
+            <div class="container">
+
+                <div class="list-sections">
+
+                    <div class="row justify-content-center">    
+                        <div class="listing-column-1 col-lg-4 col-md-6">
+                                    
+                                <div class="card">
+
+                                <div class="card-header">
+                                    <h3>To-do</h3>
+                                </div>
+
+                                    <div class="card-body">
+                                    
+
+                                        <!--List added-->
+
+                                        <ul class="list-group">
+
+                                            <li class="list-group-item">
+
+                                                 <!--action here-->
+                                                <form action= "{% url 'insert_to_do_item' %}" method="post" autocomplete="off">
+                                                    <!--makes sure to cross-check this token for any requests coming back in-->
+                                                    {% csrf_token %}
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" name="content">
+                                                        <div class="input-group-append text-info">
+                                                            <span class="input-group-text bg-white py-0">
+                                                                <button type="submit" class="btn btn-md text-info">
+                                                                    <i class="fa fa-plus-circle fa-xl"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                
+                                            </li>
+
+                                            {% for to_do in to_do_items %}
+                                                <li class="list-group-item">
+                                                    {{to_do.content}}
+                                                    <form action="{% url 'delete_to_do_item' to_do.id %}" method="post" class="float-right d-inline">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn">
+                                                        <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                                    </button>
+                                                    </form>
+                                                </li>
+                                            {% empty %}
+                                                <li class="list-group-item">
+                                                    <span class="font-italic"> Add an item to the to do list!</span>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            
+                        </div>
+
+                    
+                        <div class="listing-column-2 col-lg-4 col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                <h3>Things you want to cook 🍪</h3>
+                                </div>
+                                <div class="card-body">   
+                                    
+                                       <!--List added-->
+
+                                       <ul class="list-group">
+
+                                        <li class="list-group-item">
+
+                                             <!--action here-->
+                                            <form action= "{% url 'insert_to_cook_item' %}" method="post" autocomplete="off">
+                                                <!--makes sure to cross-check this token for any requests coming back in-->
+                                                {% csrf_token %}
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" name="content">
+                                                    <div class="input-group-append text-info">
+                                                        <span class="input-group-text bg-white py-0">
+                                                            <button type="submit" class="btn btn-md text-info">
+                                                                <i class="fa fa-plus-circle fa-xl"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            
+                                        </li>
+
+                                        {% for to_cook in to_cook_items %}
+                                            <li class="list-group-item">
+                                                {{to_cook.content}}
+                                                <form action="{% url 'delete_to_cook_item' to_cook.id %}" method="post" class="float-right d-inline">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn">
+                                                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                                </button>
+                                                </form>
+                                            </li>
+                                        {% empty %}
+                                            <li class="list-group-item">
+                                                <span class="font-italic"> Add an item to the to cook list!</span>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    
+
+                        <div class="listing-column-3 col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Things you wish for ✨</h3>
+                                </div>
+                                <div class="card-body">
+                                          <!--List added-->
+
+                                          <ul class="list-group">
+
+                                            <li class="list-group-item">
+    
+                                                 <!--action here-->
+                                                <form action= "{% url 'insert_to_wish_item' %}" method="post" autocomplete="off">
+                                                    <!--makes sure to cross-check this token for any requests coming back in-->
+                                                    {% csrf_token %}
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" name="content">
+                                                        <div class="input-group-append text-info">
+                                                            <span class="input-group-text bg-white py-0">
+                                                                <button type="submit" class="btn btn-md text-info">
+                                                                    <i class="fa fa-plus-circle fa-xl"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                
+                                            </li>
+    
+                                            {% for to_wish in to_wish_items %}
+                                                <li class="list-group-item">
+                                                    {{to_wish.content}}
+                                                    <form action="{% url 'delete_to_wish_item' to_wish.id %}" method="post" class="float-right d-inline">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn">
+                                                        <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                                    </button>
+                                                    </form>
+                                                </li>
+                                            {% empty %}
+                                                <li class="list-group-item">
+                                                    <span class="font-italic"> Add an item to the to wish list!</span>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/c60220cfac.js" crossorigin="anonymous"></script>
+   
+</body>
+</html>
+
