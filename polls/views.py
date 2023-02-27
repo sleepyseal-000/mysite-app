@@ -7,7 +7,7 @@ from .models import To_do, To_cook, To_wish
 
 def homepage(request):
     context= {
-        'to_do_items': To_do.objects.all(),
+        'to_do_items': To_do.objects.all(), 
         'to_cook_items': To_cook.objects.all(),
         'to_wish_items': To_wish.objects.all()
         }
