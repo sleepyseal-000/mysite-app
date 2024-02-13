@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'railway',
         'USER': 'postgres',
         'PASSWORD': '3Ebe63Cc33FfD1gFC4eA4e62dAA5d4Ef',
-        'HOST': 'containers-us-west-68.railway.app',
+        'HOST': 'viaduct.proxy.rlwy.net',
         'PORT': '19080',
     }
 }
